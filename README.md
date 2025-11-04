@@ -5,7 +5,7 @@
 
 ## Скриншоты работы программы представлены ниже.
 ---
-![тут должна быть картинка того, как оно считает](https://github.com/user-attachments/assets/7e840c02-3014-4134-baf8-9a20983f11fd)
+![тут должна быть картинка того, как оно считает](https://github.com/lakodhdj/TodoListApp/blob/master/photo1.png)
 > **Главное окно**
 ---
 
