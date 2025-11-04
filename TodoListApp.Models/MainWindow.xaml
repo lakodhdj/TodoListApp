@@ -1,0 +1,92 @@
+﻿<Window x:Class="TodoListApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="To-Do List" Height="600" Width="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель добавления -->
+        <Border Grid.Row="0" Background="LightGray" Padding="10" Margin="10">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding NewTaskTitle}" 
+                     Width="200" 
+                     Margin="0,0,10,0"
+                     VerticalContentAlignment="Center"
+                     MinHeight="25"/>
+                <TextBox Text="{Binding NewTaskDescription}" 
+                     Width="250" 
+                     Margin="0,0,10,0"
+                     VerticalContentAlignment="Center"
+                     MinHeight="25"/>
+                <Button Content="Добавить" 
+                    Command="{Binding AddTaskCommand}"
+                    Padding="15,5"
+                    MinHeight="30"/>
+            </StackPanel>
+        </Border>
+
+        <!-- DataGrid с РАБОЧЕЙ галочкой -->
+        <DataGrid Grid.Row="1" 
+              x:Name="TodoDataGrid"
+              ItemsSource="{Binding Todos}"
+              SelectedItem="{Binding SelectedTodo}"
+              AutoGenerateColumns="False"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              Margin="10"
+              GridLinesVisibility="Horizontal">
+            <DataGrid.Columns>
+                <!-- Название - НЕ редактируемое -->
+                <DataGridTextColumn Header="Название" 
+                               Width="200"
+                               Binding="{Binding Title}"
+                               IsReadOnly="True"/>
+
+                <!-- Описание - НЕ редактируемое -->
+                <DataGridTextColumn Header="Описание" 
+                               Width="250"
+                               Binding="{Binding Description}"
+                               IsReadOnly="True"/>
+
+                <!-- ✅ ГАЛОЧКА - РАБОТАЕТ ВСЕГДА -->
+                <DataGridCheckBoxColumn Header="Выполнено" 
+                                   Binding="{Binding IsCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Width="80"
+                                   IsReadOnly="False"/>
+
+                <!-- Дата -->
+                <DataGridTextColumn Header="Дата создания" 
+                               Width="120"
+                               Binding="{Binding CreatedDate, StringFormat=dd.MM.yyyy}"
+                               IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Панель кнопок -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                HorizontalAlignment="Right" Margin="10">
+            <Button Content="Редактировать" 
+                Command="{Binding EditTaskCommand}"
+                Margin="5"
+                Padding="10,5"/>
+            <Button Content="Сохранить" 
+                Command="{Binding SaveEditCommand}"
+                Margin="5"
+                Padding="10,5"/>
+            <Button Content="Отмена" 
+                Command="{Binding CancelEditCommand}"
+                Margin="5"
+                Padding="10,5"/>
+            <Button Content="Удалить" 
+                Command="{Binding DeleteTaskCommand}"
+                Margin="5"
+                Padding="10,5"
+                Background="LightCoral"/>
+        </StackPanel>
+    </Grid>
+</Window>
